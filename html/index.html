@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="new.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="tab-container">
+            <div class="tab-wrap">
+                <span id="off" class="dot"></span>
+                <span id="reset" class="dot"></span>
+                <div class="tab">
+                <iframe id="iframe" src="https://pc.copnet.li"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <div id="tab-container-flixxx">
+            <div class="tab-wrap">
+                <span id="off" class="dot"></span>
+                <span id="reset" class="dot"></span>
+                <div class="tab">
+                    <iframe id="iframe" src="https://pc.copnet.li"></iframe>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        var lastSite = "https://pc.copnet.li",
+            tabContainer = $("#tab-container");
+
+        $(document).ready(function () {
+            alt.emit("WGC:Client:Tablet:isReady");
+        });
+
+        $('.dot#off').click(function () {
+            alt.emit("WGC:Client:Tablet:close");
+        });
+        
+        $('.dot#reset').click(function () {
+            $(tabContainer).find("iframe").attr('src', lastSite);
+        });
+
+        alt.on("WGC:CEF:Tablet:open", (site, newDesign) => {
+            lastSite = site;
+            
+            $("#tab-container").css("display", "none");
+            $("#tab-container-flixxx").css("display", "none");
+            newDesign == true ? tabContainer = $("#tab-container-flixxx") : $("#tab-container");
+
+            tabContainer.find("iframe").attr('src', lastSite);
+            tabContainer.css("display", "flex");
+            tabContainer.fadeIn(1000);
+        });
+    </script>
+</html>
