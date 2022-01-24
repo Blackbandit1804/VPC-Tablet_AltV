@@ -19,5 +19,3 @@ alt.emit('WGC:Client:Tablet:close');
 ```
 
 *If you make mistakes, the system will report to you automatically.*
-
-# Made with love by Ffrankys <3
